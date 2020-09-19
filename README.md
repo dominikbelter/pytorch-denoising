@@ -11,7 +11,7 @@ $ sudo prime-select nvidia
 
 https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html
 
-3. Create new environment called pytorch-gpu:
+3. Create the new environment called pytorch-gpu:
 
 https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
 
@@ -26,6 +26,8 @@ $ conda activate pytorch-gpu
 Install all requirements:
 
 $ conda update conda
+
+$ conda install pytorch torchvision cudatoolkit -c pytorch
 
 $ conda install -c pytorch -c fastai fastai
 
