@@ -16,15 +16,19 @@ https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html
 https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
 
 $ cd
+
 $ source .bashrcConda
 
 $ conda create --name pytorch-gpu
+
 $ conda activate pytorch-gpu
 
 Install all requirements:
 
 $ conda update conda
+
 $ conda install -c pytorch -c fastai fastai
+
 $ conda install -c conda-forge timm
 
 4. Install Pycharm IDE:
@@ -36,24 +40,33 @@ Configure your conda environment in pycharm:
 https://www.jetbrains.com/help/pycharm/conda-support-creating-conda-virtual-environment.html
 
 5. Clone this repository
+
 $ git clone ...
 
 6. Download dataset with example images:
+
 https://www.kaggle.com/jessicali9530/stanford-dogs-dataset
 
 Select 100 training images and copy them to the pytorch-denoising/data/train subfolder
 
 Change resolution of the training images:
+
 $ cd data/train
+
 $ for i in $(ls *.jpg); do convert -resize 96x96^ -gravity center -crop 96x96+0+0 $i th-$i; done
 
 Select 10 testing images and copy them to the pytorch-denoising/data/valid subfolder and change their resolution.
 
 7. Download unet implementation in pytorch:
+
 $ cd models
+
 $ git clone https://github.com/jvanvugt/pytorch-unet
+
 $ mv pytorch-unet pytorchunet
+
 $ touch pytorch-unet/__init__.py
+
 $ cd ..
 
 8. Open the project in Pycharm
