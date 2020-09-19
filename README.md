@@ -1,5 +1,5 @@
 # pytorch-denoising
-This projects compares three architectures of neural networks in the denoising task. We use simple autoencoder, U-net and U-net based on resnet34 implemented using fastai.
+This projects compares three architectures of neural networks in the image denoising task. We use simple autoencoder, U-net and U-net based on resnet34 implemented using fastai.
 
 1. Install CUDA drivers for your NVidia graphics card
 
