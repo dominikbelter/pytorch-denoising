@@ -43,7 +43,7 @@ https://www.jetbrains.com/help/pycharm/conda-support-creating-conda-virtual-envi
 
 5. Clone this repository
 
-$ git clone ...
+$ git clone https://github.com/dominikbelter/pytorch-denoising
 
 6. Download dataset with example images:
 
