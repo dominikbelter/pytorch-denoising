@@ -67,7 +67,7 @@ $ git clone https://github.com/jvanvugt/pytorch-unet
 
 $ mv pytorch-unet pytorchunet
 
-$ touch pytorch-unet/\_\_init\_\_.py
+$ touch pytorchunet/\_\_init\_\_.py
 
 $ cd ..
 
