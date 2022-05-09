@@ -5,6 +5,7 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 from torchvision.utils import save_image
 from PIL import Image, ImageOps
+from Params import Params
 import os
 import natsort
 
