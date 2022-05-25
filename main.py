@@ -27,6 +27,6 @@ test_folder_output = '/home/dominik/Sources/pytorch-denoising/dataRGB/test/outpu
 
 results_folder = '/home/dominik/Sources/pytorch-denoising/dataRGB/results'
 
-train = Train(DEVICE, dataset_folder, train_folder_input, train_folder_output)
+train = Train(DEVICE, dataset_folder, train_folder_input, train_folder_output, results_folder)
 
 test = Test(DEVICE, test_folder_input, test_folder_output, results_folder)

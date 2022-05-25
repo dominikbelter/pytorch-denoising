@@ -54,7 +54,7 @@ class Dataset(Params):
         # train_set = torchvision.datasets.ImageFolder(root='./data', transform=self._transform, target_transform='None')
         # train_loader = torch.utils.data.DataLoader(train_set, batch_size=1, shuffle=True, num_workers=2)
         train_set = CustomDataSet(path, channels_in=self.channels_in, transform=self._transform)
-        train_loader = DataLoader(train_set, batch_size=10, shuffle=False,
+        train_loader = DataLoader(train_set, batch_size=10, shuffle=True,
                                        num_workers=1, drop_last=True)
         return train_loader
 
