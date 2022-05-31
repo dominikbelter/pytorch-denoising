@@ -6,6 +6,7 @@ from skimage.util import random_noise
 from Params import Params
 import os
 import numpy as np
+import math
 
 
 def image_save(img, name):
@@ -38,10 +39,15 @@ class Test(Params):
                 _, predicted = torch.max(test_output.data, 1)
 
                 output_img = test_output[0].cpu().detach().numpy()
+                output_img_ref = img_out_ref.cpu().detach().numpy()
                 
                 bugs_no_img = np.sum(output_img[1:300, 1:400])
                 print("sum: " + str(bugs_no_img*255.0))
-                print("bugs no img gauss 8 bit image: " + str(bugs_no_img/(81.0*3.0)/255.0))
+                radius_cir = 15
+                print("bugs no img gauss 8 bit image: " + str(bugs_no_img/((radius_cir**2)*math.pi**3.0)/255.0))
+                bugs_no_img_ref = np.sum(output_img_ref[1:300, 1:400])
+                print("sum: " + str(bugs_no_img_ref*255.0))
+                print("bugs no img gauss 8 bit image ref: " + str(bugs_no_img_ref/((radius_cir**2)*math.pi**3.0)/255.0))
 
                 # save_image(img_test, results_folder + f"/{img_no + 1}img_test_in.png")
                 # save_image(img_out_ref, results_folder + f"/{img_no + 1}img_test_out.png")
