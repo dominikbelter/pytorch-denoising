@@ -10,3 +10,5 @@ class Params:
         self.model_save_PATH = "./denoised_model.pth"
         self.channels_in = 3
         self.channels_out = 3
+        self.img_width = 400
+        self.img_height = 300

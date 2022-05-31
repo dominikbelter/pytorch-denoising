@@ -30,9 +30,6 @@ class CustomDataSet(Dataset):
             tensor_image = self.transform(gray_image)
         else :
             tensor_image = self.transform(image)
-        # image.save(results_folder + f"/{idx + 1}loaded_pil_color_image.png")
-        # gray_image.save(results_folder + f"/{idx + 1}loaded_pil_image.png")
-        # save_image(tensor_image, results_folder + f"/{idx + 1}loaded_image.png")
         return tensor_image
 
 class Dataset(Params):
@@ -52,9 +49,6 @@ class Dataset(Params):
         :return: train_loader
         '''
 
-        #train_set = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=self._transform)
-        # train_set = torchvision.datasets.ImageFolder(root='./data', transform=self._transform, target_transform='None')
-        # train_loader = torch.utils.data.DataLoader(train_set, batch_size=1, shuffle=True, num_workers=2)
         train_set = CustomDataSet(path, channels_in=self.channels_in, transform=self._transform)
         train_loader = DataLoader(train_set, batch_size=20, shuffle=False,
                                        num_workers=1, drop_last=True)
@@ -72,6 +66,3 @@ class Dataset(Params):
 
 
 Dataset = Dataset()
-
-# for i, data_in in enumerate(Dataset.train_loader(train_folder_input)):
-    # print("dfg")

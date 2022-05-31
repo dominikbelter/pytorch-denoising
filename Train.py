@@ -53,30 +53,20 @@ class Train(Params):
         if model_type == 'unet':
             model = UNet(n_classes=1, in_channels=self.channels_in, depth=5, padding=True, up_mode='upconv').cuda()
         if model_type == 'resunet':
-            # path_dir = dataset_folder
-            # path = Path(path_dir)
-            # fnames = get_image_files(path_dir)
-            # dls = ImageDataLoaders.from_folder(path,valid_pct=0.0)
             m = resnet18()
             m = nn.Sequential(*list(m.children())[:-2])
-            model = DynamicUnet(m, self.channels_out, (400, 300), norm_type=None).cuda()
+            model = DynamicUnet(m, self.channels_out, (self.img_width, self.img_height), norm_type=None).cuda()
 
         criterion_MAE = nn.L1Loss()
         criterion_dice = DiceLoss(nn)
         criterion_masked = LossMasked(nn)
         optimizer = torch.optim.Adam(model.parameters(), lr=self.learning_rate, weight_decay=1e-5)
 
-        #train_load_input = #project: separate folder for input
-        #train_load_output = #project: separate folder for output
         for epoch in range(self.num_epochs):
             for i, (data_in, data_out) in enumerate(zip(Dataset.train_loader(train_folder_input), Dataset.train_loader(train_folder_output))): #project: iterate over in and out folders
                 in_img_train, _ = data_in, data_in[1]
                 out_img_train, _ = data_out, data_out[1] #project: prepare output data
-                # save_image(data_in, results_folder + "/img_data_in.png")
-                # save_image(in_img_train[0], results_folder + "/img_data_in0.png")
-                # save_image(in_img_train[1], results_folder + "/img_data_in1.png")
-                # save_image(in_img_train[2], results_folder + "/img_data_in2.png")
-                
+
                 in_img_train, out_img_train = in_img_train.to(device), out_img_train.to(device)
                 output = model(in_img_train) #project: be careful about input/output images
                 if epoch == 9:
@@ -86,7 +76,7 @@ class Train(Params):
                 loss_MAE = criterion_MAE(output, out_img_train)
                 #loss_masked = criterion_masked(output,out_img_train, out_img_train)
                 loss_dice = criterion_dice(output, out_img_train)
-                loss = 32*loss_dice + loss_MAE
+                loss = 32*loss_dice + loss_MAE#final loss function
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()
