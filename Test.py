@@ -16,7 +16,7 @@ def image_save(img, name, image_width, image_height):
     :param name: path name
     :return: none
     '''
-    img = img.view(3, 3, image_height, image_width) # -1 -> when we dont know about size of width/height
+    img = img.view(3, 3, image_width, image_height) # -1 -> when we dont know about size of width/height
     save_image(img, name)
 
 
