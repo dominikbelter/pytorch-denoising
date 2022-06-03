@@ -43,7 +43,7 @@ class Test(Params):
                 
                 bugs_no_img = np.sum(output_img[1:self.img_height, 1:self.img_width])
                 print("sum: " + str(bugs_no_img*255.0))
-                radius_cir = 15
+                radius_cir = 21
                 print("bugs no img gauss 8 bit image: " + str(bugs_no_img/((radius_cir**2)*math.pi**3.0)/255.0))
                 bugs_no_img_ref = np.sum(output_img_ref[1:self.img_height, 1:self.img_width])
                 print("sum: " + str(bugs_no_img_ref*255.0))
