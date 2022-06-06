@@ -50,7 +50,7 @@ class Dataset(Params):
         '''
 
         train_set = CustomDataSet(path, channels_in=self.channels_in, transform=self._transform)
-        train_loader = DataLoader(train_set, batch_size=20, shuffle=False,
+        train_loader = DataLoader(train_set, batch_size=self.batch_size, shuffle=False,
                                        num_workers=1, drop_last=True)
         return train_loader
 

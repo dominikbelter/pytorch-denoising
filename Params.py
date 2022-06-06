@@ -5,6 +5,7 @@ class Params:
     def __init__(self):
         self.learning_rate = 0.001
         self.num_epochs = 10
+        self.batch_size = 20
         self.num_train_images_in_epoch = 5359
         self.num_test_images = 10
         self.model_save_PATH = "./count_worms.pth"
