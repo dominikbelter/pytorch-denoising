@@ -52,6 +52,9 @@ class Dataset(Params):
         train_set = CustomDataSet(path, channels_in=self.channels_in, transform=self._transform)
         train_loader = DataLoader(train_set, batch_size=self.batch_size, shuffle=False,
                                        num_workers=1, drop_last=True)
+        print('num of train images ')
+        print(train_set.__len__())
+        self.num_train_images = train_set.__len__()
         return train_loader
 
     def test_loader(self, path): #project: added argument path
@@ -62,6 +65,9 @@ class Dataset(Params):
         test_set = CustomDataSet(path, channels_in=self.channels_in, transform=self._transform)
         test_loader = DataLoader(test_set, batch_size=1, shuffle=False,#project: read all files from the folder
                                   num_workers=0, drop_last=False)
+        print('num of test images ')
+        print(test_set.__len__())
+        self.num_test_images = test_set.__len__()
         return test_loader
 
 
