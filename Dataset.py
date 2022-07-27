@@ -15,7 +15,7 @@ import natsort
 
 class PairDataset(Dataset):
     def __init__(self, input_paths, target_paths, train=True):
-        self.image_paths = input_paths
+        self.input_paths = input_paths
         self.target_paths = target_paths
 
     def transform(self, image_input, image_output):
