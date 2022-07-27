@@ -52,7 +52,7 @@ class PairDataset(Dataset):
         return x, y
 
     def __len__(self):
-        return len(self.image_paths)
+        return len(self.input_paths)
 
 class CustomDataSet(Dataset):
     def __init__(self, main_dir, channels_in, transform):
