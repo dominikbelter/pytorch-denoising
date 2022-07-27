@@ -63,8 +63,9 @@ class Train(Params):
         optimizer = torch.optim.Adam(model.parameters(), lr=self.learning_rate, weight_decay=1e-5)
 
         for epoch in range(self.num_epochs):
-            for i, (data_in, data_out) in enumerate(Dataset.train_loader_img2img(train_folder_input,train_folder_output)): #project: iterate over in and out folders
-            # for i, (data_in, data_out) in enumerate(zip(Dataset.train_loader(train_folder_input), Dataset.train_loader(train_folder_output))): #project: iterate over in and out folders
+            for i, (data_in, data_out) in enumerate(Dataset.train_loader_pair(train_folder_input,train_folder_output)):
+            # for i, (data_in, data_out) in enumerate(Dataset.train_loader_img2img(train_folder_input,train_folder_output)):
+            # for i, (data_in, data_out) in enumerate(zip(Dataset.train_loader(train_folder_input), Dataset.train_loader(train_folder_output))):
                 in_img_train, _ = data_in, data_in[1]
                 out_img_train, _ = data_out, data_out[1] #project: prepare output data
 

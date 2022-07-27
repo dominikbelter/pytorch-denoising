@@ -8,8 +8,51 @@ from torchvision import transforms
 from torchvision.utils import save_image
 from PIL import Image, ImageOps
 from Params import Params
+import torchvision.transforms.functional as TF
 import os
+import random
 import natsort
+
+class PairDataset(Dataset):
+    def __init__(self, input_paths, target_paths, train=True):
+        self.image_paths = input_paths
+        self.target_paths = target_paths
+
+    def transform(self, image_input, image_output):
+        # Resize
+        # resize = transforms.Resize(size=(520, 520))
+        # image_input = resize(image_input)
+        # image_output = resize(image_output)
+
+        # Random crop
+        i, j, h, w = transforms.RandomCrop.get_params(
+            image_input, output_size=(512, 512))
+        image_input = TF.crop(image_input, i, j, h, w)
+        image_output = TF.crop(image_output, i, j, h, w)
+
+        # Random horizontal flipping
+        if random.random() > 0.5:
+            image_input = TF.hflip(image_input)
+            image_output = TF.hflip(image_output)
+
+        # Random vertical flipping
+        if random.random() > 0.5:
+            image_input = TF.vflip(image_input)
+            image_output = TF.vflip(image_output)
+
+        # Transform to tensor
+        image_input = TF.to_tensor(image_input)
+        image_output = TF.to_tensor(image_output)
+        return image_input, image_output
+
+    def __getitem__(self, index):
+        image = Image.open(self.input_paths[index])
+        image_output = Image.open(self.target_paths[index])
+        x, y = self.transform(image, image_output)
+        return x, y
+
+    def __len__(self):
+        return len(self.image_paths)
 
 class CustomDataSet(Dataset):
     def __init__(self, main_dir, channels_in, transform):
@@ -70,8 +113,20 @@ class Dataset(Params):
         self.num_train_images = train_set_input.__len__()
         if train_set_input.__len__() != train_set_output.__len__() :
             print("Number of input and output images does not match")
-        print('Number of loaded train images: ' + str(self.num_train_images))
+        print('Number of loaded training images: ' + str(self.num_train_images))
         return zip(train_loader_input, train_loader_output)
+
+    def train_loader_pair(self, path_input, path_output): #project: added argument path
+        '''
+        :return: train_loader
+        '''
+
+        train_set = PairDataset(path_input, path_output)
+        train_loader = DataLoader(train_set, batch_size=self.batch_size, shuffle=False,
+                                       num_workers=1, drop_last=True)
+        self.num_train_images = train_set.__len__()
+        print('Number of loaded training images: ' + str(self.num_train_images))
+        return train_loader
 
     def test_loader(self, path): #project: added argument path
         '''
