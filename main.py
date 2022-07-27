@@ -17,15 +17,15 @@ else:
 
 DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-dataset_folder = '/home/dominik/Sources/pytorch-denoising/dataRGB/train'
-train_folder_input = '/home/dominik/Sources/pytorch-denoising/dataRGB/train/input' #project: separate folder for input
-train_folder_output = '/home/dominik/Sources/pytorch-denoising/dataRGB/train/output' #project: separate folder for output
+dataset_folder = '/home/dominik/Sources/pytorch-denoising/dataRGB_cir15_gauss3_sum/train'
+train_folder_input = '/home/dominik/Sources/pytorch-denoising/dataRGB_cir15_gauss3_sum/train/input' #project: separate folder for input
+train_folder_output = '/home/dominik/Sources/pytorch-denoising/dataRGB_cir15_gauss3_sum/train/output' #project: separate folder for output
 
-test_folder = '/home/dominik/Sources/pytorch-denoising/dataRGB/test'
-test_folder_input = '/home/dominik/Sources/pytorch-denoising/dataRGB/test/input'
-test_folder_output = '/home/dominik/Sources/pytorch-denoising/dataRGB/test/output'
+test_folder = '/home/dominik/Sources/pytorch-denoising/dataRGB_cir15_gauss3_sum/test'
+test_folder_input = '/home/dominik/Sources/pytorch-denoising/dataRGB_cir15_gauss3_sum/test/input'
+test_folder_output = '/home/dominik/Sources/pytorch-denoising/dataRGB_cir15_gauss3_sum/test/output'
 
-results_folder = '/home/dominik/Sources/pytorch-denoising/dataRGB/results'
+results_folder = '/home/dominik/Sources/pytorch-denoising/dataRGB_cir15_gauss3_sum/results'
 
 train = Train(DEVICE, dataset_folder, train_folder_input, train_folder_output, results_folder)
 
