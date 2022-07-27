@@ -56,6 +56,23 @@ class Dataset(Params):
         print('Number of loaded train images: ' + str(self.num_train_images))
         return train_loader
 
+    def train_loader_img2img(self, path_input, path_output): #project: added argument path
+        '''
+        :return: train_loader
+        '''
+
+        train_set_input = CustomDataSet(path_input, channels_in=self.channels_in, transform=self._transform)
+        train_set_output = CustomDataSet(path_output, channels_in=self.channels_in, transform=self._transform)
+        train_loader_input = DataLoader(train_set_input, batch_size=self.batch_size, shuffle=False,
+                                       num_workers=1, drop_last=True)
+        train_loader_output = DataLoader(train_set_output, batch_size=self.batch_size, shuffle=False,
+                                       num_workers=1, drop_last=True)
+        self.num_train_images = train_set_input.__len__()
+        if train_set_input.__len__() != train_set_output.__len__() :
+            print("Number of input and output images does not match")
+        print('Number of loaded train images: ' + str(self.num_train_images))
+        return zip(train_loader_input, train_loader_output)
+
     def test_loader(self, path): #project: added argument path
         '''
         :return: test_loader
