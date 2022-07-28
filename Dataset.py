@@ -14,9 +14,15 @@ import random
 import natsort
 
 class PairDataset(Dataset):
-    def __init__(self, input_paths, target_paths, train=True):
-        self.input_paths = input_paths
-        self.target_paths = target_paths
+    def __init__(self, input_path, target_path, train=True):
+        self.input_path = input_path
+        self.target_path = target_path
+        all_imgs_in = os.listdir(input_path)
+        self.total_imgs_in = natsort.natsorted(all_imgs_in)
+        # print("self.total_imgs_in " + str(self.total_imgs_in))
+        all_imgs_out = os.listdir(target_path)
+        self.total_imgs_out = natsort.natsorted(all_imgs_out)
+        # print("self.total_imgs_out " + str(self.total_imgs_out))
 
     def transform(self, image_input, image_output):
         # Resize
@@ -24,11 +30,24 @@ class PairDataset(Dataset):
         # image_input = resize(image_input)
         # image_output = resize(image_output)
 
+        width, height = image_input.size
         # Random crop
+        scale = random.uniform(0.5, 1.0)
         i, j, h, w = transforms.RandomCrop.get_params(
-            image_input, output_size=(512, 512))
+            image_input, output_size=(int(height*scale), int(width*scale)))
         image_input = TF.crop(image_input, i, j, h, w)
         image_output = TF.crop(image_output, i, j, h, w)
+
+        # resize
+        resize = transforms.Resize(size=(height, width))
+        image_input = resize(image_input)
+        image_output = resize(image_output)
+
+        # Gaussian blurr
+        if random.random() > 0.5:
+            kernel_size = random.randrange(1,5,2)
+            sigma =  random.random()*5
+            image_input = TF.gaussian_blur(image_input, kernel_size=kernel_size, sigma=sigma)
 
         # Random horizontal flipping
         if random.random() > 0.5:
@@ -46,13 +65,17 @@ class PairDataset(Dataset):
         return image_input, image_output
 
     def __getitem__(self, index):
-        image = Image.open(self.input_paths[index])
-        image_output = Image.open(self.target_paths[index])
-        x, y = self.transform(image, image_output)
+        img_loc = os.path.join(self.input_path, self.total_imgs_in[index])
+        # print(img_loc)
+        image_input = Image.open(img_loc)
+        img_loc = os.path.join(self.target_path, self.total_imgs_out[index])
+        # print(img_loc)
+        image_output = Image.open(img_loc)
+        x, y = self.transform(image_input, image_output)
         return x, y
 
     def __len__(self):
-        return len(self.input_paths)
+        return len(self.total_imgs_in)
 
 class CustomDataSet(Dataset):
     def __init__(self, main_dir, channels_in, transform):
