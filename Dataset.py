@@ -34,6 +34,7 @@ class PairDataset(Dataset):
 
         width, height = image_input.size
 
+
         # image_input.save("tr_in.png")
         # print("image_input type: " + str(type(image_input)))
         # Color jitter
@@ -46,6 +47,25 @@ class PairDataset(Dataset):
         # Gaussian blurr
         if random.random() > 0.5:
             kernel_size = random.randrange(1,9,2)#start, stop, step - odd numbers only
+            sigma =  random.random()*5
+            image_input = TF.gaussian_blur(image_input, kernel_size=kernel_size, sigma=sigma)
+
+#        # Random crop
+#        scale = random.uniform(0.5, 1.0)
+#        i, j, h, w = transforms.RandomCrop.get_params(
+#            image_input, output_size=(int(height*scale), int(width*scale)))
+#        image_input = TF.crop(image_input, i, j, h, w)
+#        image_output = TF.crop(image_output, i, j, h, w)
+
+
+        # resize
+        resize = transforms.Resize(size=(height, width))
+        image_input = resize(image_input)
+        image_output = resize(image_output)
+
+        # Gaussian blurr
+        if random.random() > 0.5:
+            kernel_size = random.randrange(1,5,2)
             sigma =  random.random()*5
             image_input = TF.gaussian_blur(image_input, kernel_size=kernel_size, sigma=sigma)
 
