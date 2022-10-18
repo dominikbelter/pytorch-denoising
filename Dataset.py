@@ -49,6 +49,14 @@ class PairDataset(Dataset):
             sigma =  random.random()*5
             image_input = TF.gaussian_blur(image_input, kernel_size=kernel_size, sigma=sigma)
 
+#        # Random crop
+#        scale = random.uniform(0.5, 1.0)
+#        i, j, h, w = transforms.RandomCrop.get_params(
+#            image_input, output_size=(int(height*scale), int(width*scale)))
+#        image_input = TF.crop(image_input, i, j, h, w)
+#        image_output = TF.crop(image_output, i, j, h, w)
+
+
         # Random horizontal flipping
         if random.random() > 0.5:
             image_input = TF.hflip(image_input)
