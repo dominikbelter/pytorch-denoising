@@ -9,7 +9,9 @@ from torchvision.utils import save_image
 from PIL import Image, ImageOps
 from Params import Params
 import torchvision.transforms.functional as TF
+import torchvision.transforms as trans
 import os
+import time
 import random
 import natsort
 
@@ -31,21 +33,19 @@ class PairDataset(Dataset):
         # image_output = resize(image_output)
 
         width, height = image_input.size
-        # Random crop
-        scale = random.uniform(0.5, 1.0)
-        i, j, h, w = transforms.RandomCrop.get_params(
-            image_input, output_size=(int(height*scale), int(width*scale)))
-        image_input = TF.crop(image_input, i, j, h, w)
-        image_output = TF.crop(image_output, i, j, h, w)
 
-        # resize
-        resize = transforms.Resize(size=(height, width))
-        image_input = resize(image_input)
-        image_output = resize(image_output)
+        # image_input.save("tr_in.png")
+        # print("image_input type: " + str(type(image_input)))
+        # Color jitter
+        if random.random() > 0.25:
+            transform = trans.Compose([
+            trans.ColorJitter(brightness=0.15, contrast = 0.15, saturation = 0.15, hue = 0.05),
+            ])
+            image_input = transform(image_input)
 
         # Gaussian blurr
         if random.random() > 0.5:
-            kernel_size = random.randrange(1,5,2)
+            kernel_size = random.randrange(1,9,2)#start, stop, step - odd numbers only
             sigma =  random.random()*5
             image_input = TF.gaussian_blur(image_input, kernel_size=kernel_size, sigma=sigma)
 
@@ -58,6 +58,13 @@ class PairDataset(Dataset):
         if random.random() > 0.5:
             image_input = TF.vflip(image_input)
             image_output = TF.vflip(image_output)
+
+        # random noise
+        # if random.random() > 0.5:
+            # sigma=random.uniform(0.01, 0.1)
+            # image_input = trans.random_noise(image_input,var=sigma**2)
+
+        # image_input.save("tr_out.png")
 
         # Transform to tensor
         image_input = TF.to_tensor(image_input)

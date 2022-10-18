@@ -53,7 +53,7 @@ class Train(Params):
         if model_type == 'unet':
             model = UNet(n_classes=1, in_channels=self.channels_in, depth=5, padding=True, up_mode='upconv').cuda()
         if model_type == 'resunet':
-            m = resnet18()
+            m = resnet34()
             m = nn.Sequential(*list(m.children())[:-2])
             model = DynamicUnet(m, self.channels_out, (self.img_width, self.img_height), norm_type=None).cuda()
 
