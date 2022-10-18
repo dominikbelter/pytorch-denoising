@@ -41,14 +41,14 @@ class Test(Params):
                 output_img = test_output[0].cpu().detach().numpy()
                 output_img_ref = img_out_ref.cpu().detach().numpy()
                 
-                correcting_factor = 1.010784196284181
-                bugs_no_img = correcting_factor*np.sum(output_img[1:self.img_height, 1:self.img_width])
-                print("sum: " + str(bugs_no_img*255.0))
-                radius_cir = 9
-                print("bugs no img gauss 8 bit image: " + str(bugs_no_img/((radius_cir**2)*math.pi**3.0)/255.0))
-                bugs_no_img_ref = np.sum(output_img_ref[1:self.img_height, 1:self.img_width])
-                print("sum: " + str(bugs_no_img_ref*255.0))
-                print("bugs no img gauss 8 bit image ref: " + str(bugs_no_img_ref/((radius_cir**2)*math.pi**3.0)/255.0))
+                # correcting_factor = 1.010784196284181
+                # bugs_no_img = correcting_factor*np.sum(output_img[1:self.img_height, 1:self.img_width])
+                # print("sum: " + str(bugs_no_img*255.0))
+                # radius_cir = 9
+                # print("bugs no img gauss 8 bit image: " + str(bugs_no_img/((radius_cir**2)*math.pi**3.0)/255.0))
+                # bugs_no_img_ref = np.sum(output_img_ref[1:self.img_height, 1:self.img_width])
+                # print("sum: " + str(bugs_no_img_ref*255.0))
+                # print("bugs no img gauss 8 bit image ref: " + str(bugs_no_img_ref/((radius_cir**2)*math.pi**3.0)/255.0))
 
                 # save_image(img_test, results_folder + f"/{img_no + 1}img_test_in.png")
                 # save_image(img_out_ref, results_folder + f"/{img_no + 1}img_test_out.png")
@@ -59,6 +59,6 @@ class Test(Params):
                 loss_test = + self._criterion_test(test_output[0], img_test).item()
                 if iter == self.num_test_images - 1:
                     average_loss_test = loss_test / self.num_test_images
-                    print(f'Average loss: {average_loss_test:.4f}')
+                    print(f'Average MSE loss: {average_loss_test:.4f}')
                     break
-                    iter=iter+1
+                iter=iter+1
