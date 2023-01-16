@@ -27,15 +27,15 @@ DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # results_folder = '/home/dominik/Sources/pytorch-denoising/dataRGB_cir15_gauss3_sum/results'
 
-dataset_folder = '/home/dominik/Sources/pytorch-denoising/dataAkira_cir5/train'
-train_folder_input = '/home/dominik/Sources/pytorch-denoising/dataAkira_cir5/train/input' #project: separate folder for input
-train_folder_output = '/home/dominik/Sources/pytorch-denoising/dataAkira_cir5/train/output' #project: separate folder for output
+dataset_folder = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train'
+train_folder_input = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train/input' #project: separate folder for input
+train_folder_output = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train/output' #project: separate folder for output
 
-test_folder = '/home/dominik/Sources/pytorch-denoising/dataAkira_cir5/test'
-test_folder_input = '/home/dominik/Sources/pytorch-denoising/dataAkira_cir5/test/input'
-test_folder_output = '/home/dominik/Sources/pytorch-denoising/dataAkira_cir5/test/output'
+test_folder = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/test'
+test_folder_input = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/test/input'
+test_folder_output = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/test/output'
 
-results_folder = '/home/dominik/Sources/pytorch-denoising/dataAkira_cir5/results'
+results_folder = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/results'
 
 train = Train(DEVICE, dataset_folder, train_folder_input, train_folder_output, results_folder)
 
