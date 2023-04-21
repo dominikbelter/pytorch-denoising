@@ -165,6 +165,18 @@ class Dataset(Params):
         self.num_train_images = train_set.__len__()
         print('Number of loaded training images: ' + str(self.num_train_images))
         return train_loader
+    
+    def test_loader_pair(self, path_input, path_output): #project: added argument path
+        '''
+        :return: test_loader
+        '''
+
+        test_set = PairDataset(path_input, path_output)
+        test_loader = DataLoader(test_set, batch_size=self.batch_size, shuffle=False,
+                                       num_workers=1, drop_last=True)
+        self.num_test_images = test_set.__len__()
+        print('Number of loaded test images: ' + str(self.num_test_images))
+        return test_loader
 
     def test_loader(self, path): #project: added argument path
         '''

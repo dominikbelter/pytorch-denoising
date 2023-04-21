@@ -31,12 +31,15 @@ dataset_folder = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train'
 train_folder_input = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train/input' #project: separate folder for input
 train_folder_output = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train/output' #project: separate folder for output
 
+eval_folder_input = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train/input' #project: separate folder for input
+eval_folder_output = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train/output' #project: separate folder for output
+
 test_folder = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/test'
 test_folder_input = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/test/input'
 test_folder_output = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/test/output'
 
 results_folder = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/results'
 
-train = Train(DEVICE, dataset_folder, train_folder_input, train_folder_output, results_folder)
+train = Train(DEVICE, dataset_folder, train_folder_input, train_folder_output, eval_folder_input, eval_folder_output, results_folder)
 
 test = Test(DEVICE, test_folder_input, test_folder_output, results_folder)
