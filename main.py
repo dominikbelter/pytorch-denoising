@@ -31,8 +31,8 @@ dataset_folder = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train'
 train_folder_input = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train/input' #project: separate folder for input
 train_folder_output = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train/output' #project: separate folder for output
 
-eval_folder_input = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train/input' #project: separate folder for input
-eval_folder_output = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/train/output' #project: separate folder for output
+eval_folder_input = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/eval/input' #project: separate folder for input
+eval_folder_output = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/eval/output' #project: separate folder for output
 
 test_folder = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/test'
 test_folder_input = '/home/dominik/Sources/pytorch-denoising/dataHipro_cir3/test/input'
