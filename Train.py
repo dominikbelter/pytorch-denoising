@@ -93,7 +93,7 @@ class Train(Params):
             print(f'epoch [{epoch + 1}/{self.num_epochs}], loss:{loss_sum:.4f}')
 
             loss_eval_sum = 0
-            for i, (data_eval_in, data_eval_out) in enumerate(Dataset.eval_loader_pair(eval_folder_input,eval_folder_output))):
+            for i, (data_eval_in, data_eval_out) in enumerate(Dataset.eval_loader_pair(eval_folder_input,eval_folder_output)):
                 in_img_eval, _ = data_eval_in, data_eval_in[1]
                 out_img_eval, _ = data_eval_out, data_eval_out[1] #project: prepare output data
 
