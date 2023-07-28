@@ -79,8 +79,8 @@ class Train(Params):
                 loss_MAE = criterion_MAE(output, out_img_train)
                 #loss_masked = criterion_masked(output,out_img_train, out_img_train)
                 loss_dice = criterion_dice(output, out_img_train)
-                # loss = 32*loss_dice + loss_MAE#final loss function
-                loss = loss_dice
+                loss = 48*loss_dice + loss_MAE#final loss function
+                #loss = loss_dice
                 optimizer.zero_grad()
                 loss.backward()
                 optimizer.step()
@@ -92,16 +92,16 @@ class Train(Params):
             # print(f'epoch [{epoch + 1}/{self.num_epochs}], loss:{loss.item():.4f}')
             print(f'epoch [{epoch + 1}/{self.num_epochs}], loss:{loss_sum:.4f}')
 
-            loss_eval_sum = 0
-            for i, (data_eval_in, data_eval_out) in enumerate(Dataset.test_loader_pair(eval_folder_input,eval_folder_output)):
-                in_img_eval, _ = data_eval_in, data_eval_in[1]
-                out_img_eval, _ = data_eval_out, data_eval_out[1] #project: prepare output data
+#            loss_eval_sum = 0
+#            for i, (data_eval_in, data_eval_out) in enumerate(Dataset.test_loader_pair(eval_folder_input,eval_folder_output)):
+#                in_img_eval, _ = data_eval_in, data_eval_in[1]
+#                out_img_eval, _ = data_eval_out, data_eval_out[1] #project: prepare output data
 
-                in_img_eval, out_img_eval = in_img_eval.to(device), out_img_eval.to(device)
-                output = model(in_img_eval)
-                loss = criterion_dice(output, out_img_eval)
-                loss_eval_sum += loss.item()
-            print(f'epoch [{epoch + 1}/{self.num_epochs}], loss eval:{loss_eval_sum:.4f}')
+#                in_img_eval, out_img_eval = in_img_eval.to(device), out_img_eval.to(device)
+#                output = model(in_img_eval)
+#                loss = criterion_dice(output, out_img_eval)
+#                loss_eval_sum += loss.item()
+#            print(f'epoch [{epoch + 1}/{self.num_epochs}], loss eval:{loss_eval_sum:.4f}')
                                              
 
         torch.save(model, self.model_save_PATH)
